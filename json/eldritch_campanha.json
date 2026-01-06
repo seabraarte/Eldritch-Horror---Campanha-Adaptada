@@ -1,0 +1,47 @@
+{
+  "campanha": {
+    "ancião": "Cthulhu",
+    "sessao_atual": 2,
+    "misterios_resolvidos": 1,
+    "doom": 8,
+    "pressagio": "Verde",
+    "status": "ativa",
+    "observacoes": ""
+  },
+
+  "investigadores": [
+    {
+      "nome": "Daisy Walker",
+      "vida": 5,
+      "sanidade": 3,
+      "atributos": {
+        "forca": 1,
+        "vontade": 3,
+        "influencia": 4,
+        "observacao": 2,
+        "conhecimento": 4
+      },
+      "itens": ["Diário Antigo"],
+      "feiticos": ["Definhar"],
+      "condicoes": [],
+      "derrotado": false
+    }
+  ],
+
+  "mundo": {
+    "portais_abertos": ["Tóquio"],
+    "monstros": [
+      {
+        "nome": "Cultista",
+        "local": "Arkham"
+      }
+    ],
+    "rumores": [
+      {
+        "nome": "Conspiração Global",
+        "progresso": 2
+      }
+    ],
+    "misterios_concluidos": ["O Despertar"]
+  }
+}

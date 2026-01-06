@@ -1,0 +1,678 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/salvar.js"></script>
+<script src="js/carregar.js"></script>
+<script src="js/gerarInvestigadores.js"></script>
+<script src="js/adicionarInvestigador.js"></script>
+<script src="js/imagem.js"></script>
+<script src="js/galeria.js"></script>
+<script src="js/alteraTela.js"></script>
+<script src="js/anciaosDerrotados.js"></script>
+<script src="js/espacosTabuleiro.js"></script>
+<link rel="stylesheet" href="css/css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eldritch Horror - Campanha</title>
+
+</head>
+<body>
+<div id="bg-anciao"></div>
+
+<div class="container">
+
+<div class="topo">
+  <button class="aba ativa" onclick="mostrarTela('campanha')">
+    Campanha
+  </button>
+
+  <button class="aba" onclick="mostrarTela('anciaos')">
+    Anciãos
+  </button>
+
+  <button class="aba" onclick="mostrarTela('investigadores')">
+    Investigadores
+  </button>
+</div>
+<centeR>
+<button onclick="carregar()">Carregar Campanha</button>
+<button onclick="salvar()">Salvar Campanha</button>
+<button onclick="apagarSave()">Apagar Campanha</button>
+<br>
+<p id="dataUltima">Não há campanha em andamento.</p>
+</center>
+
+<hr>
+
+<div id="tela_campanha">
+<div id="div_campanha0" class="">
+<h4>Estado do Ancião e seu Despertar</h4>
+
+<div class="grid-campos">
+	<div>
+	<label>Ancião:</label>
+	<input id="anciao" type="text" list="lista-anciaos"><br>
+	</div>
+	
+	<div class="despertou-container">
+	  <label class="despertou-toggle">
+		<input type="checkbox" id="despertou">
+		<span class="despertou-visual">
+		  <span class="texto">Despertou</span>
+		</span>
+	  </label>
+	</div>
+
+	
+	<div align="center">
+	<div class="escala">
+	  <span class="escala-label">Mistérios resolvidos:</span>
+	  <div class="escala-opcoes">
+		<label class="escala-item">
+		  <input type="radio" name="misterios" value="0" checked>
+		  <span>0</span>
+		</label>
+
+		<label class="escala-item">
+		  <input type="radio" name="misterios" value="1">
+		  <span>1</span>
+		</label>
+
+		<label class="escala-item">
+		  <input type="radio" name="misterios" value="2">
+		  <span>2</span>
+		</label>
+
+		<label class="escala-item">
+		  <input type="radio" name="misterios" value="3">
+		  <span>3</span>
+		</label>
+	  </div>
+	</div>
+	</div>
+	
+	<div>
+	<label>Avanço do mistério atual:</label>
+	<input id="avanco_misterio" type="number" min="0" value="0"><br>
+	</div>
+	
+	<div>
+	<label>Investigador chefe:</label>
+	<input id="investigadorchefe" type="text"><br>
+	</div>
+	
+	<div>
+	<label>Perdição:</label>
+	<input id="doom" type="number" min="1" value="0"><br>
+	</div>
+	
+	<div class="pressagio-bloco">
+	  <label>Presságio:</label>
+	  <select id="pressagio">
+		<option value="verde">1 - verde</option>
+		<option value="azul">2 - azul</option>
+		<option value="vermelho">3 - vermelho</option>
+		<option value="azul">4 - azul</option>
+	  </select>
+	</div>
+	<div align="center" style="align-self: end; display:none">
+	  <div class="pressagio-visual">
+		<img id="pressagio-img" src="assets/pressagio/verde.png">
+	  </div>
+	</div>
+
+</div>
+
+<div class="grid-campos">
+	<div style="display:none">
+	<label>Sessão atual:</label>
+	<input id="sessao" type="number"><br>
+	</div>
+	
+	
+</div>
+
+<h4>Estado dos Jogadores</h2>
+
+
+<label>Nº de jogadores:</label>
+<input type="number" id="qtd_jogadores" min="0" value="0">
+<button onclick="gerarInvestigadores()" id="btGerarInvestigadores">Gerar Investigadores</button>
+<div id="area_jogadores"></div>
+<button onclick="adicionarInvestigador()">Adicionar novo jogador</button>
+
+<hr>
+
+<h4>Estado do Tabuleiro</h4>
+
+
+<div id="area_tabuleiro"></div>
+
+<button type="button" onclick="adicionarEspaco()">
+  Adicionar espaço
+</button>
+
+<hr>
+
+<div id=fotografias" style="display: none">
+<h4>Fotografias</h4>
+
+<label>
+  <input type="checkbox" id="substituir_imagens" checked>
+  Substituir imagens
+</label>
+
+<label>Imagens da Campanha (máx. 10)</label>
+<input type="file" id="imagens" accept="image/*" multiple>
+<div id="carrossel" class="carrossel"></div>
+
+<div id="overlayImagem" class="overlay hidden">
+  <button class="nav esquerda" onclick="imagemAnterior()">&lt;</button>
+
+  <img id="imagemFullscreen">
+
+  <button class="nav direita" onclick="proximaImagem()">&gt;</button>
+
+  <div class="acoes">
+    <button onclick="excluirImagem()">🗑️</button>
+    <button onclick="fecharImagem()">Fechar</button>
+  </div>
+</div>
+</div>
+
+<button onclick="salvar()">Salvar Campanha</button>
+</div>
+
+</div>
+
+<div id="tela_anciaosderrotados" style="display:none">
+<BR>
+<div class="grid-anciaos">
+  <div class="anciao" data-nome="Abhoth">
+    <img src="assets/anciaos/Abhoth.webp">
+    <span>Abhoth</span>
+  </div>
+
+  <div class="anciao" data-nome="Antedilúvio">
+    <img src="assets/anciaos/Antediluvium.webp">
+    <span>Antedilúvio</span>
+  </div>
+
+  <div class="anciao" data-nome="Atlach-Nacha">
+    <img src="assets/anciaos/Atlach-Nacha.webp">
+    <span>Atlach-Nacha</span>
+  </div>
+
+  <div class="anciao" data-nome="Azathoth">
+    <img src="assets/anciaos/Azathoth.webp">
+    <span>Azathoth</span>
+  </div>
+
+  <div class="anciao" data-nome="Cthulhu">
+    <img src="assets/anciaos/Cthulhu.webp">
+    <span>Cthulhu</span>
+  </div>
+
+  <div class="anciao" data-nome="Hastur">
+    <img src="assets/anciaos/Hastur.webp">
+    <span>Hastur</span>
+  </div>
+
+  <div class="anciao" data-nome="Hypnos">
+    <img src="assets/anciaos/Hypnos.webp">
+    <span>Hypnos</span>
+  </div>
+
+  <div class="anciao" data-nome="Ithaqua">
+    <img src="assets/anciaos/Ithaqua.webp">
+    <span>Ithaqua</span>
+  </div>
+
+  <div class="anciao" data-nome="Nephren-Ka">
+    <img src="assets/anciaos/Nephren-Ka.webp">
+    <span>Nephren-Ka</span>
+  </div>
+
+  <div class="anciao" data-nome="Nyarlathotep">
+    <img src="assets/anciaos/Nyarlathotep.webp">
+    <span>Nyarlathotep</span>
+  </div>
+
+  <div class="anciao" data-nome="Ascensão das Criaturas Ancestrais">
+    <img src="assets/anciaos/Elder_Things.webp">
+    <span>Ascensão das Criaturas Ancestrais</span>
+  </div>
+
+  <div class="anciao" data-nome="Shub-Niggurath">
+    <img src="assets/anciaos/Shub-Niggurath.webp">
+    <span>Shub-Niggurath</span>
+  </div>
+
+  <div class="anciao" data-nome="Shudde M’ell">
+    <img src="assets/anciaos/Shudde_Mell.webp">
+    <span>Shudde M’ell</span>
+  </div>
+
+  <div class="anciao" data-nome="Sizígia">
+    <img src="assets/anciaos/Syzygy.webp">
+    <span>Sizígia</span>
+  </div>
+
+  <div class="anciao" data-nome="Yig">
+    <img src="assets/anciaos/Yig.webp">
+    <span>Yig</span>
+  </div>
+
+  <div class="anciao" data-nome="Yog-Sothoth">
+    <img src="assets/anciaos/Yog-Sothoth.webp">
+    <span>Yog-Sothoth</span>
+  </div>
+</div></div>
+
+<div id="tela_investigadores" style="display:none;">
+<br>
+  <div class="grid-investigadores">
+
+  <div class="investigador-card" data-nome="Agatha Crane">
+    <img src="assets/investigadores/Agatha_Crane.webp">
+    <span>Agatha Crane</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Agnes Baker">
+    <img src="assets/investigadores/Agnes_Baker.webp">
+    <span>Agnes Baker</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Akachi Onyele">
+    <img src="assets/investigadores/Akachi_Onyele.webp">
+    <span>Akachi Onyele</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Amanda Sharpe">
+    <img src="assets/investigadores/Amanda_Sharpe.webp">
+    <span>Amanda Sharpe</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Bob Jenkins">
+    <img src="assets/investigadores/Bob_Jenkins.webp">
+    <span>Bob Jenkins</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Calvin Wright">
+    <img src="assets/investigadores/Calvin_Wright.webp">
+    <span>Calvin Wright</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Carolyn Fern">
+    <img src="assets/investigadores/Carolyn_Fern.webp">
+    <span>Carolyn Fern</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Carson Sinclair">
+    <img src="assets/investigadores/Carson_Sinclair.webp">
+    <span>Carson Sinclair</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Charlie Kane">
+    <img src="assets/investigadores/Charlie_Kane.webp">
+    <span>Charlie Kane</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Daisy Walker">
+    <img src="assets/investigadores/Daisy_Walker.webp">
+    <span>Daisy Walker</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Daniela Reyes">
+    <img src="assets/investigadores/Daniela_Reyes.webp">
+    <span>Daniela Reyes</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Darrell Simmons">
+    <img src="assets/investigadores/Darrell_Simmons.webp">
+    <span>Darrell Simmons</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Dexter Drake">
+    <img src="assets/investigadores/Dexter_Drake.webp">
+    <span>Dexter Drake</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Diana Stanley">
+    <img src="assets/investigadores/Diana_Stanley.webp">
+    <span>Diana Stanley</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Father Mateo">
+    <img src="assets/investigadores/Father_Mateo.webp">
+    <span>Father Mateo</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Finn Edwards">
+    <img src="assets/investigadores/Finn_Edwards.webp">
+    <span>Finn Edwards</span>
+  </div>
+
+  <div class="investigador-card" data-nome="George Barnaby">
+    <img src="assets/investigadores/George_Barnaby.webp">
+    <span>George Barnaby</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Gloria Goldberg">
+    <img src="assets/investigadores/Gloria_Goldberg.webp">
+    <span>Gloria Goldberg</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Irmã Mary">
+    <img src="assets/investigadores/Sister_Mary.webp">
+    <span>Irmã Mary</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Hank Samson">
+    <img src="assets/investigadores/Hank_Samson.webp">
+    <span>Hank Samson</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Harvey Walters">
+    <img src="assets/investigadores/Harvey_Walters.webp">
+    <span>Harvey Walters</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Jacqueline Fine">
+    <img src="assets/investigadores/Jacqueline_Fine.webp">
+    <span>Jacqueline Fine</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Jenny Barnes">
+    <img src="assets/investigadores/Jenny_Barnes.webp">
+    <span>Jenny Barnes</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Jim Culver">
+    <img src="assets/investigadores/Jim_Culver.webp">
+    <span>Jim Culver</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Joe Diamond">
+    <img src="assets/investigadores/Joe_Diamond.webp">
+    <span>Joe Diamond</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Kate Winthrop">
+    <img src="assets/investigadores/Kate_Winthrop.webp">
+    <span>Kate Winthrop</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Leo Anderson">
+    <img src="assets/investigadores/Leo_Anderson.webp">
+    <span>Leo Anderson</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Lily Chen">
+    <img src="assets/investigadores/Lily_Chen.webp">
+    <span>Lily Chen</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Liso O'Toole">
+    <img src="assets/investigadores/Skids_Toole.webp">
+    <span>Liso O'Toole</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Lola Hayes">
+    <img src="assets/investigadores/Lola_Hayes.webp">
+    <span>Lola Hayes</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Luke Robinson">
+    <img src="assets/investigadores/Luke_Robinson.webp">
+    <span>Luke Robinson</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Mandy Thompson">
+    <img src="assets/investigadores/Mandy_Thompson.webp">
+    <span>Mandy Thompson</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Marie Lambeau">
+    <img src="assets/investigadores/Marie_Lambeau.webp">
+    <span>Marie Lambeau</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Mark Harrigan">
+    <img src="assets/investigadores/Mark_Harrigan.webp">
+    <span>Mark Harrigan</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Michael McGlen">
+    <img src="assets/investigadores/Michael_McGlen.webp">
+    <span>Michael McGlen</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Minh Thi Phan">
+    <img src="assets/investigadores/Minh_Thi_Phan.webp">
+    <span>Minh Thi Phan</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Monterey Jack">
+    <img src="assets/investigadores/Monterey_Jack.webp">
+    <span>Monterey Jack</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Norman Withers">
+    <img src="assets/investigadores/Norman_Withers.webp">
+    <span>Norman Withers</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Patrice Hathaway">
+    <img src="assets/investigadores/Patrice_Hathaway.webp">
+    <span>Patrice Hathaway</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Peter Chaminé">
+    <img src="assets/investigadores/Ashcan_Pete.webp">
+    <span>Peter "Chaminé"</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Preston Fairmont">
+    <img src="assets/investigadores/Preston_Fairmont.webp">
+    <span>Preston Fairmont</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Rex Murphy">
+    <img src="assets/investigadores/Rex_Murphy.webp">
+    <span>Rex Murphy</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Rita Young">
+    <img src="assets/investigadores/Rita_Young.webp">
+    <span>Rita Young</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Roland Banks">
+    <img src="assets/investigadores/Roland_Banks.webp">
+    <span>Roland Banks</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Sefina Rousseau">
+    <img src="assets/investigadores/Sefina_Rousseau.webp">
+    <span>Sefina Rousseau</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Silas Marsh">
+    <img src="assets/investigadores/Silas_Marsh.webp">
+    <span>Silas Marsh</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Tommy Muldoon">
+    <img src="assets/investigadores/Tommy_Muldoon.webp">
+    <span>Tommy Muldoon</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Tony Morgan">
+    <img src="assets/investigadores/Tony_Morgan.webp">
+    <span>Tony Morgan</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Trish Scarborough">
+    <img src="assets/investigadores/Trish_Scarborough.webp">
+    <span>Trish Scarborough</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Ursula Downs">
+    <img src="assets/investigadores/Ursula_Downs.webp">
+    <span>Ursula Downs</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Vincent Lee">
+    <img src="assets/investigadores/Vincent_Lee.webp">
+    <span>Vincent Lee</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Wendy Adams">
+    <img src="assets/investigadores/Wendy_Adams.webp">
+    <span>Wendy Adams</span>
+  </div>
+
+  <div class="investigador-card" data-nome="William Yorick">
+    <img src="assets/investigadores/William_Yorick.webp">
+    <span>William Yorick</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Wilson Richards">
+    <img src="assets/investigadores/Wilson_Richards.webp">
+    <span>Wilson Richards</span>
+  </div>
+
+  <div class="investigador-card" data-nome="Zoey Samaras">
+    <img src="assets/investigadores/Zoey_Samaras.webp">
+    <span>Zoey Samaras</span>
+  </div>
+
+</div>
+
+</div>
+
+
+
+</div> <!-- a -->
+
+<div id="modal-confirmacao" class="modal hidden">
+  <div class="modal-conteudo">
+    <p id="modal-texto"></p>
+
+    <div class="modal-botoes">
+      <button id="modal-sim">Sim</button>
+      <button id="modal-nao">Não</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-escolha" class="modal hidden">
+  <div class="modal-conteudo">
+    <p>Tipo de derrota:</p>
+
+    <div class="modal-botoes">
+      <button id="btn-vida">Vida</button>
+      <button id="btn-sanidade">Sanidade</button>
+    </div>
+  </div>
+</div>
+
+<datalist id="lista-anciaos">
+<option value="Abhoth">
+<option value="Antedilúvio">
+<option value="Atlach-Nacha">
+<option value="Azathoth">
+<option value="Cthulhu">
+<option value="Hastur">
+<option value="Hypnos">
+<option value="Ithaqua">
+<option value="Nephren-Ka">
+<option value="Nyarlathotep">
+<option value="Ascensão das Criaturas Ancestrais">
+<option value="Shub-Niggurath">
+<option value="Shudde M’ell">
+<option value="Sizígia">
+<option value="Yig">
+<option value="Yog-Sothoth">
+</datalist>
+
+<datalist id="lista-espacos">
+<option value="São Francisco">
+<option value="Arkham">
+<option value="Amazônia">
+<option value="Buenos Aires">
+<option value="Londres">
+<option value="Roma">
+<option value="Istambul">
+<option value="Pirâmides">
+<option value="Coração da África">
+<option value="Antártida">
+<option value="Himalaia">
+<option value="Tunguska">
+<option value="Tóquio">
+<option value="Xangai">
+<option value="Sydney">
+</datalist>
+
+<datalist id="lista-investigadores">
+  <option value="Agatha Crane">
+  <option value="Agnes Baker">
+  <option value="Akachi Onyele">
+  <option value="Amanda Sharpe">
+  <option value="Bob Jenkins">
+  <option value="Calvin Wright">
+  <option value="Carolyn Fern">
+  <option value="Carson Sinclair">
+  <option value="Charlie Kane">
+  <option value="Daisy Walker">
+  <option value="Daniela Reyes">
+  <option value="Darrell Simmons">
+  <option value="Dexter Drake">
+  <option value="Diana Stanley">
+  <option value="Father Mateo">
+  <option value="Finn Edwards">
+  <option value="George Barnaby">
+  <option value="Gloria Goldberg">
+  <option value="Irmã Mary">
+  <option value="Hank Samson">
+  <option value="Harvey Walters">
+  <option value="Jacqueline Fine">
+  <option value="Jenny Barnes">
+  <option value="Jim Culver">
+  <option value="Joe Diamond">
+  <option value="Kate Winthrop">
+  <option value="Leo Anderson">
+  <option value="Lily Chen">
+  <option value="\"Liso\" O'Toole">
+  <option value="Lola Hayes">
+  <option value="Luke Robinson">
+  <option value="Mandy Thompson">
+  <option value="Marie Lambeau">
+  <option value="Mark Harrigan">
+  <option value="Michael McGlen">
+  <option value="Minh Thi Phan">
+  <option value="Monterey Jack">
+  <option value="Norman Withers">
+  <option value="Patrice Hathaway">
+  <option value="Peter \"Chaminé\"">
+  <option value="Preston Fairmont">
+  <option value="Rex Murphy">
+  <option value="Rita Young">
+  <option value="Roland Banks">
+  <option value="Sefina Rousseau">
+  <option value="Silas Marsh">
+  <option value="Tommy Muldoon">
+  <option value="Tony Morgan">
+  <option value="Trish Scarborough">
+  <option value="Ursula Downs">
+  <option value="Vincent Lee">
+  <option value="Wendy Adams">
+  <option value="William Yorick">
+  <option value="Wilson Richards">
+  <option value="Zoey Samaras">
+</datalist>
+
+
+</body>
+</html>

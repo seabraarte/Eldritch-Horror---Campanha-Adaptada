@@ -1,0 +1,6 @@
+Ambiente de Impressão/
+Ambiente de Rede/
+Thumbs.db
+*.log
+*.tmp
+.DS_Store
